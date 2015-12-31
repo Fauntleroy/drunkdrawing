@@ -1,0 +1,68 @@
+{
+  "name": "drunkdrawing",
+  "version": "1.0.0-alpha.1",
+  "description": "A collaborative drawing application for drunk people",
+  "main": "server.js",
+  "scripts": {
+    "build": "mkdirp compiled && npm-run-all build:*",
+    "build:css": "stylus app/styles/index.styl --out compiled --include node_modules --include-css",
+    "build:js": "browserify -t [ babelify --presets [ es2015 stage-2 react ] ] --extension=.jsx app/index.jsx --outfile compiled/index.js",
+    "minify": "npm-run-all minify:*",
+    "minify:css": "csso compiled/index.css compiled/index.css",
+    "minify:js": "uglifyjs compiled/index.js --screw-ie8 -o compiled/index.js",
+    "watch": "mkdirp compiled && npm-run-all -p watch:css watch:js server",
+    "watch:css": "npm run build:css -- -w",
+    "watch:js": "watchify -t [ babelify --presets [ es2015 stage-2 react ] ] --extension=.jsx app/index.jsx --outfile compiled/index.js -v",
+    "server": "node server.js",
+    "clean": "trash compiled",
+    "postinstall": "npm-run-all build minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fauntleroy/metaspace.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Timothy Kempf <tim@kemp59f.info> (https://kemp59f.info)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/fauntleroy/metaspace/issues"
+  },
+  "homepage": "https://github.com/fauntleroy/metaspace/",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-2": "^6.1.18",
+    "babelify": "^7.2.0",
+    "browserify": "^11.2.0",
+    "csso": "^1.4.2",
+    "mkdirp": "^0.5.1",
+    "normalize.css": "^3.0.3",
+    "npm-run-all": "^1.3.1",
+    "stylus": "^0.52.4",
+    "trash-cli": "^1.1.0",
+    "uglify-js": "^2.6.1",
+    "watchify": "^3.4.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.1",
+    "firebase": "^2.3.1",
+    "getusermedia": "^1.3.5",
+    "history": "^1.12.5",
+    "koa": "^1.1.0",
+    "koa-compress": "^1.0.8",
+    "koa-static": "^1.5.1",
+    "lodash": "^3.10.1",
+    "node-static": "^0.7.7",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-redux": "^4.0.0",
+    "react-router": "^1.0.0-rc3",
+    "redux": "^3.0.4",
+    "redux-logger": "^2.0.4",
+    "redux-thunk": "^1.0.0",
+    "rgb2hex": "^0.1.0",
+    "uuid": "^2.0.1"
+  }
+}
